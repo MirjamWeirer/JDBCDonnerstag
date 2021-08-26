@@ -49,10 +49,95 @@ public class DBHelper {
         }
     }
 
-    public  void readAllGames(String filename){
+    public void readAllGames(String filename){
         String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
         //SQL statement Auslesen von Zeilen
         String sql = "SELECT * FROM GAME";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            /*rs.next();
+
+            String gameName = rs.getString(2);
+            gameName = rs.getString("GameName");
+            System.out.println(gameName);
+
+             */
+
+            while (rs.next()){
+                String gameName = rs.getString("GameName");
+                System.out.println(gameName);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void readGamesFilteredByGenre(String genre){
+        //String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
+        String sql = "SELECT * FROM GAME WHERE GameGenre =' " + genre +"'";
+        helpReadSqlStatement(sql);
+//        try (Connection conn = DriverManager.getConnection(url);
+//             Statement stmt = conn.createStatement()) {
+//
+//            ResultSet rs = stmt.executeQuery(sql);
+//            String gameName = rs.getString("GameName");
+//            String gameGenre = rs.getString("GameGenre");
+//
+//            while (rs.next()){
+//                System.out.println(gameName + " " + gameGenre);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+    }
+
+    public void readGamesFlteredByMaxLevel(int maxLevel){
+       // String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
+        String sql = "SELECT * FROM GAME WHERE MaxLevel >' " + maxLevel + "'";
+        helpReadSqlStatement(sql);
+
+//        try (Connection conn = DriverManager.getConnection(url);
+//             Statement stmt = conn.createStatement()) {
+//
+//            ResultSet rs = stmt.executeQuery(sql);
+//            String gameName = rs.getString("GameName");
+//            //String gameGenre = rs.getString("GameGenre");
+//
+//            while (rs.next()){
+//                System.out.println(gameName);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+    }
+
+    public void readGamesOrderBy(String orderColumn){
+        //String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
+        String sql = "SELECT * FROM GAME ORDER BY ' " +orderColumn + "'";
+        helpReadSqlStatement(sql);
+//        try (Connection conn = DriverManager.getConnection(url);
+//             Statement stmt = conn.createStatement()) {
+//
+//            ResultSet rs = stmt.executeQuery(sql);
+//            String gameName = rs.getString("GameName");
+//            //String gameGenre = rs.getString("GameGenre");
+//
+//            while (rs.next()){
+//                System.out.println(gameName);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+    }
+
+    private void helpReadSqlStatement (String sql){
+        String fileName = "Donnerstag.db";
+        String url = "jdbc:sqlite:C:/sqlite/db/" + fileName;
+        //SQL statement Auslesen von Zeilen
+
 
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
