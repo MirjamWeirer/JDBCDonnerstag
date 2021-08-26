@@ -48,4 +48,28 @@ public class DBHelper {
             System.out.println(e.getMessage());
         }
     }
+
+    public  void readAllGames(String filename){
+        String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
+        //SQL statement Auslesen von Zeilen
+        String sql = "SELECT * FROM GAME";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            rs.next();
+
+            String gameName = rs.getString(2);
+            gameName = rs.getString("GameName");
+            System.out.println(gameName);
+            while (rs.next()){
+                gameName = rs.getString("GameName");
+                System.out.println(gameName);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
