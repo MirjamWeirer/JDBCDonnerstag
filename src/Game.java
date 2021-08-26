@@ -34,4 +34,14 @@ public class Game {
     public void setMaxLevel(int maxLevel) {
         MaxLevel = maxLevel;
     }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "GameId=" + GameId +
+                ", GameName='" + GameName + '\'' +
+                ", GameGenre='" + GameGenre + '\'' +
+                ", MaxLevel=" + MaxLevel +
+                '}';
+    }
 }

@@ -30,13 +30,15 @@ public class DonnerstagDB {
 
        // db.displayGameWithMaxLevelBetweenAandB(60,1000);
         DBHelperTyped dbHelperTyped = new DBHelperTyped();
-        Game g = new Game();
-        g.setGameName("Monopoly");
-        g.setGameGenre("board games");
-        g.setMaxLevel(20);
-
-        dbHelperTyped.addGame(g);
-
-        db.readAllGames(fileName);
+//        Game g = new Game();
+//        g.setGameName("Monopoly");
+//        g.setGameGenre("board games");
+//        g.setMaxLevel(20);
+//
+//        dbHelperTyped.addGame(g);
+//
+//        db.readAllGames(fileName);
+       Game game = dbHelperTyped.getGameById(3);
+        System.out.println(game);
     }
 }

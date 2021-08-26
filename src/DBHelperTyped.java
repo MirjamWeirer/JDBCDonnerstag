@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DBHelperTyped {
 
@@ -22,5 +19,25 @@ public class DBHelperTyped {
             System.out.println(e.getMessage());
         }
     }
-
+    public Game getGameById(int gameId){
+        Game g = new Game();
+        String sql = "SELECT * FROM game WHERE GameID = ?";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt =  conn.prepareStatement(sql)) {
+            stmt.setInt(1,gameId);
+          
+            ResultSet rs = stmt.executeQuery();
+           if (rs.next()){
+               g.setGameId(gameId);
+               g.setGameName(rs.getString("GameName"));
+               g.setGameGenre(rs.getString("GameGenre"));
+               g.setMaxLevel(rs.getInt("MaxLevel"));
+           }else {
+               g.setGameName("not found");
+           }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return g;
+    }
 }
