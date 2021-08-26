@@ -23,7 +23,10 @@ public class DonnerstagDB {
 //        db.readAllPlayers(fileName);
 //        System.out.println("Read all order by Nickname");
 //        db.readAllPlayersOrderdBy(order, fileName);
-        db.readGamesFilteredByGenrePrepare(genre);
+        //db.readGamesFilteredByGenrePrepare(genre);
+
+        db.insertGamePrepare("Sudoko","Puzzle",80);
+        db.readAllGames(fileName);
 
     }
 }

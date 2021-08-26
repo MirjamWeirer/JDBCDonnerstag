@@ -187,6 +187,25 @@ public class DBHelper {
             System.out.println(e.getMessage());
         }
     }
+    public void insertGamePrepare(String GameName, String GameGenre, int MaxLevel){
+        String fileName = "Donnerstag.db";
+        String url = "jdbc:sqlite:C:/sqlite/db/" + fileName;
+        //String sql = "SELECT * FROM GAME WHERE GameGenre = ? ";
+        String insertSQL = "INSERT INTO game (GameName, GameGenre, MaxLevel)";
+        insertSQL += " VALUES(?,?,?)";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt =  conn.prepareStatement(insertSQL)) {
+            stmt.setString(1,GameName);
+            stmt.setString(2,GameGenre);
+            stmt.setInt(3,MaxLevel);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
     public void createPlayerTable(String filename){
         String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
         String sql = "CREATE TABLE IF NOT EXISTS player (\n"
