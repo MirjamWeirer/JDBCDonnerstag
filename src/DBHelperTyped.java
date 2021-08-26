@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBHelperTyped {
 
@@ -18,6 +19,25 @@ public class DBHelperTyped {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public ArrayList<Game> getAllGamesByGenre(String genre){
+        ArrayList<Game> meineSpiele = new ArrayList<Game>();
+
+        String sql = "SELECT * FROM game WHERE GameGenre = ?";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt =  conn.prepareStatement(sql)) {
+            stmt.setString(1,genre);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                int gameId = rs.getInt("GameId");
+                Game g = getGameById(gameId);
+                meineSpiele.add(g);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return meineSpiele;
     }
     public Game getGameById(int gameId){
         Game g = new Game();

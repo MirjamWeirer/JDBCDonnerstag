@@ -40,5 +40,7 @@ public class DonnerstagDB {
 //        db.readAllGames(fileName);
        Game game = dbHelperTyped.getGameById(3);
         System.out.println(game);
+
+        System.out.println(dbHelperTyped.getAllGamesByGenre("Simulation"));
     }
 }
