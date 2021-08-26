@@ -258,4 +258,28 @@ public class DBHelper {
             System.out.println(e.getMessage());
         }
     }
+
+    public void displayGameWithMaxLevelBetweenAandB(int a, int b){
+        System.out.println("MaxLevel between: " + a + " and " +b);
+        String sql = "SELECT * FROM game WHERE MaxLevel BETWEEN ? AND ?";
+        helpStatementPrepared(sql,a,b);
+    }
+    private void helpStatementPrepared (String sql, int a, int b) {
+        String fileName = "Donnerstag.db";
+        String url = "jdbc:sqlite:C:/sqlite/db/" + fileName;
+        System.out.println("SQL Prepared Statement " + sql);
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt =  conn.prepareStatement(sql)) {
+            stmt.setInt(1,a);
+            stmt.setInt(2,b);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                //System.out.println(sql);
+                String gameName = rs.getString("GameName");
+                System.out.println(gameName);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

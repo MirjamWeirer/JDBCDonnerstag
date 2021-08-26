@@ -25,8 +25,10 @@ public class DonnerstagDB {
 //        db.readAllPlayersOrderdBy(order, fileName);
         //db.readGamesFilteredByGenrePrepare(genre);
 
-        db.insertGamePrepare("Sudoko","Puzzle",80);
-        db.readAllGames(fileName);
+//        db.insertGamePrepare("Sudoko","Puzzle",80);
+//        db.readAllGames(fileName);
+
+        db.displayGameWithMaxLevelBetweenAandB(60,1000);
 
     }
 }
