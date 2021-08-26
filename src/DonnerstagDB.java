@@ -3,7 +3,7 @@ public class DonnerstagDB {
         String fileName = "Donnerstag.db";
         DBHelper db = new DBHelper();
         String genre = "Action";
-        int maxLevel = 60;
+        int maxLevel = 30;
         String ordercolumn = "MaxLevel";
         /*
         db.createNewDatabase(fileName);
