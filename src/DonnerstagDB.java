@@ -2,7 +2,7 @@ public class DonnerstagDB {
     public static void main(String[] args) {
         String fileName = "Donnerstag.db";
         DBHelper db = new DBHelper();
-        String genre = "Action";
+        String genre = "Simulation";
         int maxLevel = 30;
         String ordercolumn = "MaxLevel";
         /*
@@ -12,7 +12,7 @@ public class DonnerstagDB {
 
         System.out.println("Finished - Table was created");
         */
-        //db.readAllGames(fileName);
+        db.readAllGames(fileName);
         db.readGamesFilteredByGenre(genre);
         db.readGamesFlteredByMaxLevel(maxLevel);
         db.readGamesOrderBy(ordercolumn);

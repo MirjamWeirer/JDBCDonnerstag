@@ -77,7 +77,8 @@ public class DBHelper {
     }
     public void readGamesFilteredByGenre(String genre){
         //String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
-        String sql = "SELECT * FROM GAME WHERE GameGenre =' " + genre +"'";
+        String sql = "SELECT * FROM GAME WHERE GameGenre ='" + genre + "'";
+        System.out.println(sql);
         helpReadSqlStatement(sql);
 //        try (Connection conn = DriverManager.getConnection(url);
 //             Statement stmt = conn.createStatement()) {
@@ -96,7 +97,8 @@ public class DBHelper {
 
     public void readGamesFlteredByMaxLevel(int maxLevel){
        // String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
-        String sql = "SELECT * FROM GAME WHERE MaxLevel >' " + maxLevel + "'";
+        String sql = "SELECT * FROM GAME WHERE MaxLevel > " + maxLevel ;
+        System.out.println(sql);
         helpReadSqlStatement(sql);
 
 //        try (Connection conn = DriverManager.getConnection(url);
@@ -116,7 +118,8 @@ public class DBHelper {
 
     public void readGamesOrderBy(String orderColumn){
         //String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
-        String sql = "SELECT * FROM GAME ORDER BY ' " +orderColumn + "'";
+        String sql = "SELECT * FROM GAME ORDER BY " +orderColumn ;
+        System.out.println(sql);
         helpReadSqlStatement(sql);
 //        try (Connection conn = DriverManager.getConnection(url);
 //             Statement stmt = conn.createStatement()) {
@@ -153,6 +156,7 @@ public class DBHelper {
              */
 
             while (rs.next()){
+                //System.out.println(sql);
                 String gameName = rs.getString("GameName");
                 System.out.println(gameName);
             }
