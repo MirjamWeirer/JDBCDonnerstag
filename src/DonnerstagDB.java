@@ -19,10 +19,11 @@ public class DonnerstagDB {
 //        db.readGamesOrderBy(ordercolumn);
 //        db.createPlayerTable(fileName);
 //        System.out.println("Finished - Table was created");
-        System.out.println("Read all");
-        db.readAllPlayers(fileName);
-        System.out.println("Read all order by Nickname");
-        db.readAllPlayersOrderdBy(order, fileName);
+//        System.out.println("Read all");
+//        db.readAllPlayers(fileName);
+//        System.out.println("Read all order by Nickname");
+//        db.readAllPlayersOrderdBy(order, fileName);
+        db.readGamesFilteredByGenrePrepare(genre);
 
     }
 }

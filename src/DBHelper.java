@@ -94,7 +94,12 @@ public class DBHelper {
 //            System.out.println(e.getMessage());
 //        }
     }
+    public void readGamesFilteredByGenrePrepare(String genre){
+        System.out.println("readGamesFilteredByGenrePrepare");
+        String sql = "SELECT * FROM GAME WHERE GameGenre = ? ";
+        helpReadSqlStatementPrepared(sql,genre);
 
+    }
     public void readGamesFlteredByMaxLevel(int maxLevel){
        // String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
         String sql = "SELECT * FROM GAME WHERE MaxLevel > " + maxLevel ;
@@ -155,6 +160,24 @@ public class DBHelper {
 
              */
 
+            while (rs.next()){
+                //System.out.println(sql);
+                String gameName = rs.getString("GameName");
+                System.out.println(gameName);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void helpReadSqlStatementPrepared (String sql, String genre) {
+        String fileName = "Donnerstag.db";
+        String url = "jdbc:sqlite:C:/sqlite/db/" + fileName;
+        System.out.println("SQL Prepared Statement " + sql);
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt =  conn.prepareStatement(sql)) {
+            stmt.setString(1,genre);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 //System.out.println(sql);
                 String gameName = rs.getString("GameName");
