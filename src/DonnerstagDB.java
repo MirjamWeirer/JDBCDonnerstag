@@ -28,7 +28,15 @@ public class DonnerstagDB {
 //        db.insertGamePrepare("Sudoko","Puzzle",80);
 //        db.readAllGames(fileName);
 
-        db.displayGameWithMaxLevelBetweenAandB(60,1000);
+       // db.displayGameWithMaxLevelBetweenAandB(60,1000);
+        DBHelperTyped dbHelperTyped = new DBHelperTyped();
+        Game g = new Game();
+        g.setGameName("Monopoly");
+        g.setGameGenre("board games");
+        g.setMaxLevel(20);
 
+        dbHelperTyped.addGame(g);
+
+        db.readAllGames(fileName);
     }
 }
