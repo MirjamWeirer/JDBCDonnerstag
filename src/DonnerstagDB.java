@@ -5,6 +5,7 @@ public class DonnerstagDB {
         String genre = "Simulation";
         int maxLevel = 30;
         String ordercolumn = "MaxLevel";
+        String order = "Nickname"; //order Column Player
         /*
         db.createNewDatabase(fileName);
         db.connect(fileName);
@@ -12,9 +13,16 @@ public class DonnerstagDB {
 
         System.out.println("Finished - Table was created");
         */
-        db.readAllGames(fileName);
-        db.readGamesFilteredByGenre(genre);
-        db.readGamesFlteredByMaxLevel(maxLevel);
-        db.readGamesOrderBy(ordercolumn);
+//        db.readAllGames(fileName);
+//        db.readGamesFilteredByGenre(genre);
+//        db.readGamesFlteredByMaxLevel(maxLevel);
+//        db.readGamesOrderBy(ordercolumn);
+//        db.createPlayerTable(fileName);
+//        System.out.println("Finished - Table was created");
+        System.out.println("Read all");
+        db.readAllPlayers(fileName);
+        System.out.println("Read all order by Nickname");
+        db.readAllPlayersOrderdBy(order, fileName);
+
     }
 }

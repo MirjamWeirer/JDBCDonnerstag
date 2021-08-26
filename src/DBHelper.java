@@ -164,4 +164,56 @@ public class DBHelper {
             System.out.println(e.getMessage());
         }
     }
+    public void createPlayerTable(String filename){
+        String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
+        String sql = "CREATE TABLE IF NOT EXISTS player (\n"
+                + "PlayerID INTEGER PRIMARY KEY AUTOINCREMENT, \n"
+                + "Firstname VARCHAR(255) NOT NULL, \n"
+                + "Lastname VARCHAR(255) NOT NULL,\n"
+                + "Nickname VARCHAR(255) NOT NULL\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        }    catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void  readAllPlayers(String filename){
+        String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
+        String sql = "SELECT * FROM player";
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()){
+                String firstname = rs.getString("Firstname");
+                System.out.println("Firstname: " + firstname);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void readAllPlayersOrderdBy(String orderColumn, String filename){
+        String url = "jdbc:sqlite:C:/sqlite/db/" + filename;
+        String sql = "SELECT * FROM player ORDER BY " + orderColumn;
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()){
+                String firstname = rs.getString("Firstname");
+                String nickname = rs.getString("Nickname");
+                System.out.println("Firstname: " + firstname + ", Nickname: " + nickname);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
