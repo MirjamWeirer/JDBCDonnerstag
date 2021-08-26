@@ -59,13 +59,16 @@ public class DBHelper {
 
             ResultSet rs = stmt.executeQuery(sql);
 
-            rs.next();
+            /*rs.next();
 
             String gameName = rs.getString(2);
             gameName = rs.getString("GameName");
             System.out.println(gameName);
+
+             */
+
             while (rs.next()){
-                gameName = rs.getString("GameName");
+                String gameName = rs.getString("GameName");
                 System.out.println(gameName);
             }
         } catch (SQLException e) {
