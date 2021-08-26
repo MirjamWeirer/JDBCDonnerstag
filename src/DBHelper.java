@@ -39,6 +39,11 @@ public class DBHelper {
              Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
+
+            String insStatement = "INSERT INTO Game (GameName, GameGenre, MaxLevel)";
+            insStatement += "VALUES ('Solitaire','Action',100)";
+
+            stmt.execute(insStatement);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
