@@ -119,7 +119,7 @@ public class DBHelperTyped {
         }
     }
 
-    public Player getPlayerByID (int playerId){
+    public Player getPlayerByID (int playerId) {
         Player p = new Player();
         String sql = "SELECT * FROM player WHERE PlayerID = ?";
         try (Connection conn = DriverManager.getConnection(url);

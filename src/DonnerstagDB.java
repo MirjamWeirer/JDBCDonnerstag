@@ -3,7 +3,7 @@ public class DonnerstagDB {
         String fileName = "Donnerstag.db";
         DBHelper db = new DBHelper();
         String genre = "Simulation";
-        int maxLevel = 30;
+        //int maxLevel = 30;
         String ordercolumn = "MaxLevel";
         String order = "Nickname"; //order Column Player
         /*
