@@ -104,11 +104,60 @@ public class DBHelperTyped {
     }
 
     public void addPlayer (Player p){
+        String insertSQL = "INSERT INTO player (Firstname, Lastname, Nickname)";
+        insertSQL += " VALUES(?,?,?)";
 
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt =  conn.prepareStatement(insertSQL)) {
+            stmt.setString(1,p.getFirstname());
+            stmt.setString(2,p.getLastname());
+            stmt.setString(3,p.getNickname());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public Player getPlayerByID (int playerId){
         Player p = new Player();
+        String sql = "SELECT * FROM player WHERE PlayerID = ?";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt =  conn.prepareStatement(sql)) {
+            stmt.setInt(1,playerId);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                p.setPlayerId(playerId);
+                p.setFirstname(rs.getString("Firstname"));
+                p.setLastname(rs.getString("Lastname"));
+                p.setNickname(rs.getString("Nickname"));
+            }else {
+                p.setFirstname("not found");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return p;
+    }
+    //PlayerId -- WHERE
+    public void updatePlayer(Player p){
+        String updateSQL="";
+        updateSQL = "UPDATE player SET ";
+        updateSQL += " Firstname=?, ";
+        updateSQL += " Lastname=?, ";
+        updateSQL += " Nickname=? ";
+        updateSQL += " WHERE PlayerID=? ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt = conn.prepareStatement(updateSQL)) {
+            stmt.setString(1,p.getFirstname());
+            stmt.setString(2,p.getLastname());
+            stmt.setString(3,p.getNickname());
+            stmt.setInt(4,p.getPlayerId());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
