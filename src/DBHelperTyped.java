@@ -60,4 +60,46 @@ public class DBHelperTyped {
         }
         return g;
     }
+
+    public int updateGame(Game g){
+        int afferdRows = 0;
+        String updateSQL="";
+        updateSQL = "UPDATE Game SET ";
+        updateSQL += " GameName=?, ";
+        updateSQL += " GameGenre=?, ";
+        updateSQL += " MaxLevel=? ";
+        updateSQL += " WHERE GameId=? ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt = conn.prepareStatement(updateSQL)) {
+            stmt.setString(1,g.getGameName());
+            stmt.setString(2,g.getGameGenre());
+            stmt.setInt(3,g.getMaxLevel());
+            stmt.setInt(4,g.getGameId());
+            afferdRows = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return afferdRows;
+    }
+
+    public int incrementMaxLevelByXforGenre(int incrementValue, String genre){
+        int afferdRows = 0;
+        String updateSQL="";
+        updateSQL = "UPDATE Game SET ";
+        updateSQL += " MaxLevel= MaxLeveL + ? ";
+        updateSQL += " WHERE GameGenre =? ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt = conn.prepareStatement(updateSQL)) {
+            stmt.setInt(1,incrementValue);
+            stmt.setString(2,genre);
+
+            afferdRows = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return afferdRows;
+    }
 }

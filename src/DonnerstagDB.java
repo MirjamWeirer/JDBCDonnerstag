@@ -42,5 +42,19 @@ public class DonnerstagDB {
         System.out.println(game);
 
         System.out.println(dbHelperTyped.getAllGamesByGenre("Simulation"));
+
+        Game g = dbHelperTyped.getGameById(7);
+        g.setMaxLevel(90);
+       int shouldBeOne =  dbHelperTyped.updateGame(g);
+       if (shouldBeOne == 0){
+           System.out.println("Game was not found");
+       }else if (shouldBeOne > 1){
+           System.out.println("More than one Game have the same ID");
+       }else if (shouldBeOne == 1){
+           System.out.println("One Game was updatet");
+       }
+
+        int rowsAfferd = dbHelperTyped.incrementMaxLevelByXforGenre(50,"Action");
+        System.out.println(rowsAfferd);
     }
 }
