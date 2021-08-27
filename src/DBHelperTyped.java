@@ -102,4 +102,13 @@ public class DBHelperTyped {
 
         return afferdRows;
     }
+
+    public void addPlayer (Player p){
+
+    }
+
+    public Player getPlayerByID (int playerId){
+        Player p = new Player();
+        return p;
+    }
 }
