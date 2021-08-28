@@ -170,4 +170,29 @@ public class DBHelperTyped {
             System.out.println(e.getMessage());
         }
     }
+
+    public LovedGames addLovedGame (LovedGames l){
+        String insertSQL = "INSERT INTO LovedGames (playerId, gameId, rank)";
+        insertSQL += " VALUES(?,?,?)";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt =  conn.prepareStatement(insertSQL)) {
+            stmt.setInt(1,l.getPlayerId());
+            stmt.setInt(2,l.getGameId());
+            stmt.setInt(3, l.getRank());
+            stmt.executeUpdate();
+            stmt.close();
+            String sqlText ="SELECT last_insert_rowid() as rowid";
+            PreparedStatement stmtAutoincrement = conn.prepareStatement(sqlText);
+            ResultSet rs = stmtAutoincrement.executeQuery();
+            rs.next();
+            int autoincrementValue = rs.getInt("rowid");
+            l.setPlayerId(autoincrementValue);
+            System.out.println(autoincrementValue);
+            stmtAutoincrement.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return l;
+    }
 }
