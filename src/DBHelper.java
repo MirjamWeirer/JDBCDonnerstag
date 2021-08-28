@@ -282,4 +282,8 @@ public class DBHelper {
             System.out.println(e.getMessage());
         }
     }
+
+    private void createTableLovedGames (String url){
+
+    }
 }
