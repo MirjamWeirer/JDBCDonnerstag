@@ -304,4 +304,22 @@ public class DBHelper {
             System.out.println(e.getMessage());
         }
     }
+
+    public void createTableGameHistory (String url){
+        String sql = "CREATE TABLE IF NOT EXISTS GameHistory (\n"
+                + "GameHistory INTEGER PRIMARY KEY AUTOINCREMENT, \n"
+                + "GameId INTEGER,\n"
+                + "GamePlayedOnUTC DATE,\n"
+                + "FOREIGN KEY (GameId) REFERENCES game (GameId)"
+                + ");";
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            SQLiteConfig config = new SQLiteConfig();
+            config.enforceForeignKeys(true);
+            stmt.execute(sql);
+        }    catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

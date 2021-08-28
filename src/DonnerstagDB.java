@@ -79,5 +79,7 @@ public class DonnerstagDB {
 
 //        LovedGames lovedGames = new LovedGames(0,1,3,700);
 //        dbHelperTyped.addLovedGame(lovedGames);
+        db.createTableGameHistory(url);
+        System.out.println("Created Table");
     }
 }
