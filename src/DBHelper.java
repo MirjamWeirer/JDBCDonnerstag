@@ -1,3 +1,5 @@
+import org.sqlite.SQLiteConfig;
+
 import java.sql.*;
 
 public class DBHelper {
@@ -283,7 +285,23 @@ public class DBHelper {
         }
     }
 
-    private void createTableLovedGames (String url){
-
+    public void createTableLovedGames (String url){
+        String sql = "CREATE TABLE IF NOT EXISTS LovedGames (\n"
+                + "LovedGamesId INTEGER PRIMARY KEY AUTOINCREMENT, \n"
+                + "PlayerId INTEGER, \n"
+                + "GameId INTEGER,\n"
+                + "Rank INTEGER,\n"
+                + "FOREIGN KEY (PlayerId) REFERENCES player (PlayerID),\n"
+                + "FOREIGN KEY (GameId) REFERENCES game (GameId)"
+                + ");";
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            SQLiteConfig config = new SQLiteConfig();
+            config.enforceForeignKeys(true);
+            stmt.execute(sql);
+        }    catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
