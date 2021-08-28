@@ -58,15 +58,20 @@ public class DonnerstagDB {
 //        System.out.println(rowsAfferd);
 
 //        Player p = new Player();
-//        p.setFirstname("Anna");
-//        p.setLastname("Robosch");
-//        p.setNickname("Queer");
-//        dbHelperTyped.addPlayer(p);
+//        p.setFirstname("Martin");
+//        p.setLastname("Amschl");
+//        p.setNickname("Dr.");
+
+
+//        Player playerinsert = dbHelperTyped.addPlayer(p);
 
 //        Player player = dbHelperTyped.getPlayerByID(2);
 //        System.out.println(player);
-        Player p = dbHelperTyped.getPlayerByID(5);
-        p.setNickname("Fight Girl");
-        dbHelperTyped.updatePlayer(p);
+//        Player p = dbHelperTyped.getPlayerByID(5);
+//        p.setNickname("Fight Girl");
+//        dbHelperTyped.updatePlayer(p);
+
+        Player player = new Player(0,"Fabian","Weissitsch","Fabs");
+        dbHelperTyped.addPlayer(player);
     }
 }

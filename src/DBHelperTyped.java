@@ -103,7 +103,7 @@ public class DBHelperTyped {
         return afferdRows;
     }
 
-    public void addPlayer (Player p){
+    public Player addPlayer (Player p){
         String insertSQL = "INSERT INTO player (Firstname, Lastname, Nickname)";
         insertSQL += " VALUES(?,?,?)";
 
@@ -114,9 +114,19 @@ public class DBHelperTyped {
             stmt.setString(3,p.getNickname());
 
             stmt.executeUpdate();
+            stmt.close();
+            String sqlText ="SELECT last_insert_rowid() as rowid";
+            PreparedStatement stmtAutoincrement = conn.prepareStatement(sqlText);
+            ResultSet rs = stmtAutoincrement.executeQuery();
+            rs.next();
+            int autoincrementValue = rs.getInt("rowid");
+            p.setPlayerId(autoincrementValue);
+            System.out.println(autoincrementValue);
+            stmtAutoincrement.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return p;
     }
 
     public Player getPlayerByID (int playerId) {

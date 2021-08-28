@@ -2,6 +2,17 @@ public class Player {
     private int PlayerId;
     private String Firstname, Lastname, Nickname;
 
+    public Player() {
+
+    }
+
+    public Player(int playerId, String firstname, String lastname, String nickname) {
+        PlayerId = playerId;
+        Firstname = firstname;
+        Lastname = lastname;
+        Nickname = nickname;
+    }
+
     public int getPlayerId() {
         return PlayerId;
     }
