@@ -101,19 +101,32 @@ public class GameLanguagesAndAge {
         }
     }
 
-    public void addGameLanguagesAndAge() {
+    public void save() {
         String insertSQL = "INSERT INTO GameLanguagesAndAge (GameId, NameDeutsch, NameEnglish, NameSpanisch, MinAGE)";
         insertSQL += " VALUES(?,?,?,?,?)";
         String pragmaForeinKey = "PRAGMA foreign_keys=on; ";
         try (Connection conn = DriverManager.getConnection(connectionString);
              PreparedStatement stmt =  conn.prepareStatement(insertSQL)) {
+            conn.setAutoCommit(false);
             PreparedStatement activiateForeignKey = conn.prepareStatement(pragmaForeinKey);
-            stmt.setInt(1,gameId);
-            stmt.setString(2,nameDeutsch);
-            stmt.setString(3,nameEnglish);
-            stmt.setString(4,nameSpanisch);
-            stmt.setDouble(5,(minAge));
-            stmt.executeUpdate();
+            activiateForeignKey.executeUpdate();
+                stmt.setInt(1,gameId);
+                stmt.setString(2,nameDeutsch);
+                stmt.setString(3,nameEnglish);
+                stmt.setString(4,nameSpanisch);
+                stmt.setDouble(5,(minAge));
+                stmt.executeUpdate();
+            String sqlText ="SELECT last_insert_rowid() as rowid";
+            PreparedStatement stmtAutoincrement = conn.prepareStatement(sqlText);
+            ResultSet rs = stmtAutoincrement.executeQuery();
+            rs.next();
+            int autoincrementValue = rs.getInt("rowid");
+           setGameLanguagesAndAgeId(autoincrementValue);
+            System.out.println(autoincrementValue);
+            stmtAutoincrement.close();
+          conn.commit(); //zum hinzufügen
+            //conn.rollback ->rückgängig machen zurück hollen eines datensatzes bevor er hinzugefügt wird
+          conn.setAutoCommit(true);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

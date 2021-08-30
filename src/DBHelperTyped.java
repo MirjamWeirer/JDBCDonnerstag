@@ -311,38 +311,4 @@ public class DBHelperTyped {
         System.out.println(e.getMessage());
         }
     }
-
-
-
-//    public ArrayList<GameLanguagesAndAge> gameLanguagesAndAges(){
-//        ArrayList<GameLanguagesAndAge> gameLanguagesAndAges =new ArrayList<>();
-//        GameLanguagesAndAge gl = new GameLanguagesAndAge();
-//        String sqlSelect = "SELECT * FROM GameLanguagesAndAge";
-//        boolean lastReadWasNull;
-//        String name;
-//        try (Connection conn = DriverManager.getConnection(url);
-//             PreparedStatement stmt = conn.prepareStatement(sqlSelect)) {
-//            stmt.setInt(1, gl.getGameId());
-//            stmt.setString(2, gl.getNameDeutsch());
-//            stmt.setString(3, gl.getNameDeutsch());
-//            stmt.setString(4, gl.getNameDeutsch());
-//            stmt.setDouble(5, gl.getMinAge());
-//
-//            ResultSet rs = stmt.executeQuery();
-//            while (rs.next()){
-//                Game g = getGameById(rs.getInt("GameId"));
-//                GameLanguagesAndAge gameLanguagesAndAge = new GameLanguagesAndAge();
-//                gameLanguagesAndAge.setGameId(g.getGameId());
-//                if (lastReadWasNull = rs.wasNull()) {
-//                    stmt.setString(1, "Eintrag unbekannt");
-//                }
-//                gameLanguagesAndAges.add(gameLanguagesAndAge);
-//            }
-//
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//
-//     return    gameLanguagesAndAges;
-//    }
 }
