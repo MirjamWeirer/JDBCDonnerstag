@@ -323,24 +323,5 @@ public class DBHelper {
         }
     }
 
-    public void createTableGameLanguagesAndAge (String url){
-        String sql = "CREATE TABLE IF NOT EXISTS GameLanguagesAndAge (\n"
-                + "GameLanguagesAndAgeId INTEGER PRIMARY KEY AUTOINCREMENT, \n"
-                + "GameId INTEGER,\n"
-                + "NameDeutsch VARCHAR(255),\n"
-                + "NameEnglish VARCHAR(255),\n"
-                + "NameSpanisch VARCHAR(255),\n"
-                + "MinAGE DECIMAL,\n"
-                + "FOREIGN KEY (GameId) REFERENCES game (GameId)"
-                + ");";
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement stmt = conn.createStatement()) {
-            // create a new table
-            SQLiteConfig config = new SQLiteConfig();
-            config.enforceForeignKeys(true);
-            stmt.execute(sql);
-        }    catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+
 }

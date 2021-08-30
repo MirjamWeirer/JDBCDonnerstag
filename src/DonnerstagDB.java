@@ -104,6 +104,17 @@ public class DonnerstagDB {
 
         //dbHelperTyped.printMetaData();
 
-        db.createTableGameLanguagesAndAge(url);
+        //db.createTableGameLanguagesAndAge(url);
+
+        GameLanguagesAndAge gl = new GameLanguagesAndAge();
+//        gl.createTable();
+//        gl.setGameId(17);
+//        gl.setNameDeutsch("Solitaire");
+//        gl.setNameSpanisch("Solitario");
+//        gl.addGameLanguagesAndAge();
+
+        gl.printMetaDataGameLanguageAndAge();
+        //System.out.println(dbHelperTyped.gameLanguagesAndAges());
+        gl.printInfo();
     }
 }
