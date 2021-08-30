@@ -7,6 +7,8 @@ public class DonnerstagDB {
         String ordercolumn = "MaxLevel";
         String order = "Nickname"; //order Column Player
         String url = "jdbc:sqlite:C:/sqlite/db/" + fileName;
+        Player p = new Player();
+        Game g = new Game();
         /*
         db.createNewDatabase(fileName);
         db.connect(fileName);
@@ -79,7 +81,22 @@ public class DonnerstagDB {
 
 //        LovedGames lovedGames = new LovedGames(0,1,3,700);
 //        dbHelperTyped.addLovedGame(lovedGames);
-        db.createTableGameHistory(url);
-        System.out.println("Created Table");
+//        db.createTableGameHistory(url);
+//        System.out.println("Created Table");
+//        LovedGames l = dbHelperTyped.getLovedGames(2);
+//        l.setRank(40);
+//        dbHelperTyped.updateLovedGames(l);
+
+//        p.setPlayerId(1);
+//        p.fillLovedGames();
+//        p.fillLovedGamesOOP();
+//        System.out.println(p.getMyLovedGamesOOP());
+
+//        p.setPlayerId(4);
+////        g.setGameId(8);
+////        p.addLovedGame(g);
+
+        p = dbHelperTyped.getPlayerWithMostLovedGames();
+        System.out.println(p);
     }
 }

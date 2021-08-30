@@ -195,4 +195,63 @@ public class DBHelperTyped {
         }
         return l;
     }
+
+    public LovedGames getLovedGames (int lovedGamesId) {
+        LovedGames l = new LovedGames();
+        String sql = "SELECT * FROM LovedGames WHERE LovedGamesId = ?";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt =  conn.prepareStatement(sql)) {
+            stmt.setInt(1,lovedGamesId);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                l.setGameId(rs.getInt("LovedGamesId"));
+                l.setPlayerId(rs.getInt("PlayerId"));
+                l.setPlayerId(rs.getInt("GameId"));
+                l.setPlayerId(rs.getInt("Rank"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return l;
+    }
+
+    public void updateLovedGames(LovedGames l){
+        String updateSQL="";
+        updateSQL = "UPDATE LovedGames SET ";
+        updateSQL += " PlayerId=?, ";
+        updateSQL += " GameId=?, ";
+        updateSQL += " Rank=? ";
+        updateSQL += " WHERE LovedGamesId=? ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt = conn.prepareStatement(updateSQL)) {
+            stmt.setInt(1,l.getPlayerId());
+            stmt.setInt(2,l.getGameId());
+            stmt.setInt(3,l.getRank());
+            stmt.setInt(4,l.getLovedGamesId());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Player getPlayerWithMostLovedGames(){
+        Player p = new Player();
+        String selectSQL = "SELECT PlayerId, Count(*)\n" +
+                "FROM LovedGames\n" +
+                "GROUP BY PlayerId\n" +
+                "ORDER BY Count (*) DESC";
+        try (Connection conn = DriverManager.getConnection(url);
+            PreparedStatement stmt =  conn.prepareStatement(selectSQL)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                int playerId = rs.getInt("PlayerId");
+               p = getPlayerByID(playerId);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return p;
+    }
 }
