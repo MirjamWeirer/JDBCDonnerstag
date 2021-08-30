@@ -254,4 +254,61 @@ public class DBHelperTyped {
         }
         return p;
     }
+
+    public int joinLovedGame(Game g, Player p, int l) { //int lovedGames?
+        String selectSQL = "";
+        boolean lastReadWasNull;
+        int rank=0;
+        selectSQL = "SELECT p.Nickname, l.Rank, g.GameName, l.Rank " +
+                "FROM LovedGames AS l " +
+                "INNER JOIN Player AS p " +
+                "ON p.PlayerID = l.PlayerId " +
+                "JOIN Game g " +
+                "ON g.GameID = l.GameId";
+        selectSQL += " WHERE p.PlayerId =? ";
+        selectSQL += " AND g.GameId=? ";
+        //selectSQL += " AND LovedGamesID=? ";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt = conn.prepareStatement(selectSQL)) {
+            stmt.setInt(1, p.getPlayerId());
+            stmt.setInt(2, g.getGameId());
+            //stmt.setInt(3, l.getLovedGamesID());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()){
+                rank=rs.getInt("Rank");
+                lastReadWasNull = rs.wasNull();
+                System.out.println(lastReadWasNull);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return rank;
+    }
+
+    public void printMetaData(){
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Player")){
+             ResultSet rs = stmt.executeQuery();
+            ResultSetMetaData meta = rs.getMetaData();
+
+            int numerics = 0;
+
+            for ( int i = 1; i <= meta.getColumnCount(); i++ )
+            {
+                System.out.printf( "%-20s %-20s%n", meta.getColumnLabel( i ),
+                        meta.getColumnTypeName( i ) );
+
+                if ( meta.isSigned( i ) )
+                    numerics++;
+            }
+
+            System.out.println();
+            System.out.println( "Spalten: " + meta.getColumnCount() +
+                    ", Numerisch: " + numerics );
+        } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    }
 }

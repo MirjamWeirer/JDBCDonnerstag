@@ -96,7 +96,12 @@ public class DonnerstagDB {
 ////        g.setGameId(8);
 ////        p.addLovedGame(g);
 
-        p = dbHelperTyped.getPlayerWithMostLovedGames();
-        System.out.println(p);
+        //p = dbHelperTyped.getPlayerWithMostLovedGames();
+//        System.out.println(p);
+
+//       int rank = dbHelperTyped.joinLovedGame(g,p,0);
+//        System.out.println(rank);
+
+        dbHelperTyped.printMetaData();
     }
 }
