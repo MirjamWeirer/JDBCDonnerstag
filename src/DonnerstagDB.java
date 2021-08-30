@@ -102,6 +102,8 @@ public class DonnerstagDB {
 //       int rank = dbHelperTyped.joinLovedGame(g,p,0);
 //        System.out.println(rank);
 
-        dbHelperTyped.printMetaData();
+        //dbHelperTyped.printMetaData();
+
+        db.createTableGameLanguagesAndAge(url);
     }
 }
