@@ -5,6 +5,7 @@ public class Player {
     private int PlayerId;
     private String Firstname, Lastname, Nickname;
     private String url ="jdbc:sqlite:C:/sqlite/db/Donnerstag.db";
+    private float points;
     ArrayList<LovedGames> myLovedGames;
     ArrayList<Game> myLovedGamesOOP;
 
@@ -50,6 +51,14 @@ public class Player {
 
     public void setNickname(String nickname) {
         Nickname = nickname;
+    }
+
+    public float getPoints() {
+        return points;
+    }
+
+    public void setPoints(float points) {
+        this.points = points;
     }
 
     @Override
@@ -148,5 +157,60 @@ public class Player {
 
     public void setMyLovedGamesOOP(ArrayList<Game> myLovedGamesOOP) {
         this.myLovedGamesOOP = myLovedGamesOOP;
+    }
+
+    public void alterTable(){
+        String alterSQL = "ALTER TABLE player ADD COLUMN Points DECIMAL;";
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(alterSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updatePoints(){
+        String sqlUpdate = "UPDATE player SET Points = 100";
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(sqlUpdate);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void transferPointsFromUserAToB(int playerId, int playerIdB, int points){
+        String updateSQLPlayerA ="UPDATE player SET ";
+            updateSQLPlayerA += " Points = Points - ? ";
+            updateSQLPlayerA += " WHERE PlayerId = ? ";
+        String updateSQLPlayerB ="UPDATE player SET ";
+            updateSQLPlayerB += " Points = Points + ?";
+            updateSQLPlayerB += " WHERE PlayerId = ?";
+        String selectPlayerA = "SELECT * FROM Player WHERE PlayerId = ?";
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement stmt = conn.prepareStatement(updateSQLPlayerA);
+             PreparedStatement stmtB = conn.prepareStatement(updateSQLPlayerB);
+             PreparedStatement stmtSelectPlayer = conn.prepareStatement(selectPlayerA)) {
+            stmt.setFloat(1,points);
+            stmt.setInt(2,playerId);
+            stmtB.setFloat(1,points);
+            stmtB.setInt(2,playerIdB);
+            stmtSelectPlayer.setInt(1,playerId);
+            conn.setAutoCommit(false);
+
+            stmt.executeUpdate();
+            stmtB.executeUpdate();
+            ResultSet rs = stmtSelectPlayer.executeQuery();
+            rs.next();
+            float newPoints = rs.getFloat("Points");
+
+            if (newPoints >= 0){
+                conn.commit();
+            }else {
+                conn.rollback();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

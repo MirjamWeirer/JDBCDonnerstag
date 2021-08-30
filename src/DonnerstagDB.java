@@ -106,15 +106,20 @@ public class DonnerstagDB {
 
         //db.createTableGameLanguagesAndAge(url);
 
-        GameLanguagesAndAge gl = new GameLanguagesAndAge();
+       // GameLanguagesAndAge gl = new GameLanguagesAndAge();
 //        gl.createTable();
 //        gl.setGameId(17);
 //        gl.setNameDeutsch("Solitaire");
 //        gl.setNameSpanisch("Solitario");
 //        gl.addGameLanguagesAndAge();
 
-        gl.printMetaDataGameLanguageAndAge();
+     //   gl.printMetaDataGameLanguageAndAge();
         //System.out.println(dbHelperTyped.gameLanguagesAndAges());
-        gl.printInfo();
+     //   gl.printInfo();
+
+        Player player = new Player();
+        //player.alterTable();
+        //player.updatePoints();
+        player.transferPointsFromUserAToB(1,2,30);
     }
 }
