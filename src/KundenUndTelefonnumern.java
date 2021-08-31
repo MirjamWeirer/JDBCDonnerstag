@@ -49,19 +49,34 @@ public class KundenUndTelefonnumern {
 
             String vorname = "Steff";
             pStmtInsKunden.setString(1,vorname);
-            pStmtInsKunden.executeUpdate();
+            //pStmtInsKunden.executeUpdate();
 
             //Erster Parameter mit KDNR 1 befüllen
             pStmtInsTelefon.setInt(1,2);
             //Zweiter Parameter mit Telefonnummer
             pStmtInsTelefon.setString(2,"0316");
-            pStmtInsTelefon.executeUpdate();
+           // pStmtInsTelefon.executeUpdate();
 
             pStmtInsTelefon.setInt(1,2);
             pStmtInsTelefon.setString(2,"0676");
-            pStmtInsTelefon.executeUpdate();
+           // pStmtInsTelefon.executeUpdate();
 
             ResultSet rs = stmtSelectMitJoin.executeQuery(joinKundeUndTelefon);
+            ResultSetMetaData meta = rs.getMetaData();
+            int numerics = 0;
+
+            for ( int i = 1; i <= meta.getColumnCount(); i++ )
+            {
+                System.out.printf( "%-20s %-20s%n", meta.getColumnLabel( i ),
+                        meta.getColumnTypeName( i ) );
+
+                if ( meta.isSigned( i ) )
+                    numerics++;
+            }
+
+            System.out.println();
+            System.out.println( "Spalten: " + meta.getColumnCount() +
+                    ", Numerisch: " + numerics );
 
             while (rs.next()){
                 System.out.println("Vorname: " + rs.getString("Vorname") + ", Telefonnummer: " + rs.getString("Telefonnummer"));
