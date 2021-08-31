@@ -117,9 +117,13 @@ public class DonnerstagDB {
         //System.out.println(dbHelperTyped.gameLanguagesAndAges());
      //   gl.printInfo();
 
-        Player player = new Player();
+      //  Player player = new Player();
         //player.alterTable();
         //player.updatePoints();
-        player.transferPointsFromUserAToB(1,2,30);
+      //  player.transferPointsFromUserAToB(1,2,30);
+
+        KundenUndTelefonnumern kt = new KundenUndTelefonnumern();
+        kt.createTable();
+        kt.insertValues();
     }
 }
